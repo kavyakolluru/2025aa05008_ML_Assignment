@@ -77,7 +77,7 @@ Six classification models were implemented and evaluated on this dataset:
 | **kNN** | 82.84% accuracy. F1 score (0.63) shows a reasonable balance. Scaling is essential here. |
 | **Naive Bayes** | Lowest performer (79.58%). Struggled due to feature correlation (e.g., education/occupation). |
 | **Random Forest** | 85.61% accuracy. High precision (0.80) makes it very reliable for positive predictions. |
-| **XGBoost** | **Best performer.** Highest accuracy (86.87%) and AUC (0.93). Recommended for production. |
+| **XGBoost** | **Best performer.** Highest accuracy (86.87%) and AUC (0.93). |
 
 ---
 
