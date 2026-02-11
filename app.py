@@ -282,7 +282,8 @@ def main():
         for idx, (name, filename) in enumerate(cm_files):
             cm_path = os.path.join("model", filename)
             if os.path.exists(cm_path):
-                with cols[idx % 3]:
+                col_index = idx % len(cols)
+                with cols[col_index]:
                     st.image(cm_path, caption=name, use_container_width=True)
 
         st.markdown("---")
@@ -351,67 +352,66 @@ def main():
                     with st.spinner("Processing data and making predictions..."):
                         X_processed, y_true = preprocess_data(df, label_encoders, scaler)
 
-                        model = models[selected_model]
-
-                        y_pred = model.predict(X_processed)
-
-                        try:
-                            y_prob = model.predict_proba(X_processed)
-                        except:
-                            y_prob = None
-
-                        st.markdown("---")
-                        st.subheader(f"🎯 Results for {selected_model}")
-
-                        col1, col2 = st.columns(2)
-
-                        with col1:
-                            st.markdown("**Prediction Summary:**")
-                            pred_df = pd.DataFrame({
-                                'Prediction': ['<=50K (Low Income)', '>50K (High Income)'],
-                                'Count': [np.sum(y_pred == 0), np.sum(y_pred == 1)]
-                            })
-                            st.dataframe(pred_df, use_container_width=True)
-
-                        with col2:
-                            fig, ax = plt.subplots(figsize=(4, 4))
-                            ax.pie([np.sum(y_pred == 0), np.sum(y_pred == 1)],
-                                   labels=['<=50K', '>50K'],
-                                   autopct='%1.1f%%',
-                                   colors=['#ff6b6b', '#51cf66'])
-                            ax.set_title('Prediction Distribution')
-                            st.pyplot(fig)
-
-                        if has_target and y_true is not None:
-                            st.markdown("---")
-                            st.subheader("📈 Evaluation Metrics")
-
-                            metrics = calculate_metrics(y_true, y_pred, y_prob)
-
-                            col1, col2, col3 = st.columns(3)
-                            col1.metric("Accuracy", f"{metrics['Accuracy']:.4f}")
-                            col2.metric("AUC Score", f"{metrics['AUC']:.4f}")
-                            col3.metric("F1 Score", f"{metrics['F1 Score']:.4f}")
-
-                            col4, col5, col6 = st.columns(3)
-                            col4.metric("Precision", f"{metrics['Precision']:.4f}")
-                            col5.metric("Recall", f"{metrics['Recall']:.4f}")
-                            col6.metric("MCC", f"{metrics['MCC']:.4f}")
+                        if selected_model is not None:
+                            model = models[selected_model]
+                            y_pred = model.predict(X_processed)
+                            try:
+                                y_prob = model.predict_proba(X_processed)
+                            except:
+                                y_prob = None
 
                             st.markdown("---")
+                            st.subheader(f"🎯 Results for {selected_model}")
 
                             col1, col2 = st.columns(2)
 
                             with col1:
-                                st.subheader("📊 Confusion Matrix")
-                                fig = plot_confusion_matrix(y_true, y_pred, f"Confusion Matrix - {selected_model}")
-                                st.pyplot(fig)
+                                st.markdown("**Prediction Summary:**")
+                                pred_df = pd.DataFrame({
+                                    'Prediction': ['<=50K (Low Income)', '>50K (High Income)'],
+                                    'Count': [np.sum(y_pred == 0), np.sum(y_pred == 1)]
+                                })
+                                st.dataframe(pred_df, use_container_width=True)
 
                             with col2:
-                                st.subheader("📋 Classification Report")
-                                report = classification_report(y_true, y_pred, target_names=['<=50K', '>50K'], output_dict=True)
-                                report_df = pd.DataFrame(report).transpose()
-                                st.dataframe(report_df.style.format("{:.4f}"), use_container_width=True)
+                                fig, ax = plt.subplots(figsize=(4, 4))
+                                ax.pie([np.sum(y_pred == 0), np.sum(y_pred == 1)],
+                                       labels=['<=50K', '>50K'],
+                                       autopct='%1.1f%%',
+                                       colors=['#ff6b6b', '#51cf66'])
+                                ax.set_title('Prediction Distribution')
+                                st.pyplot(fig)
+
+                            if has_target and y_true is not None:
+                                st.markdown("---")
+                                st.subheader("📈 Evaluation Metrics")
+
+                                metrics = calculate_metrics(y_true, y_pred, y_prob)
+
+                                col1, col2, col3 = st.columns(3)
+                                col1.metric("Accuracy", f"{metrics['Accuracy']:.4f}")
+                                col2.metric("AUC Score", f"{metrics['AUC']:.4f}")
+                                col3.metric("F1 Score", f"{metrics['F1 Score']:.4f}")
+
+                                col4, col5, col6 = st.columns(3)
+                                col4.metric("Precision", f"{metrics['Precision']:.4f}")
+                                col5.metric("Recall", f"{metrics['Recall']:.4f}")
+                                col6.metric("MCC", f"{metrics['MCC']:.4f}")
+
+                                st.markdown("---")
+
+                                col1, col2 = st.columns(2)
+
+                                with col1:
+                                    st.subheader("📊 Confusion Matrix")
+                                    fig = plot_confusion_matrix(y_true, y_pred, f"Confusion Matrix - {selected_model}")
+                                    st.pyplot(fig)
+
+                                with col2:
+                                    st.subheader("📋 Classification Report")
+                                    report = classification_report(y_true, y_pred, target_names=['<=50K', '>50K'], output_dict=True)
+                                    report_df = pd.DataFrame(report).transpose()
+                                    st.dataframe(report_df.style.format("{:.4f}"), use_container_width=True)
 
             except Exception as e:
                 st.error(f"Error processing file: {str(e)}")
