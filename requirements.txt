@@ -1,10 +1,18 @@
-numpy
-pandas
-matplotlib
-seaborn
-scikit-learn
-xgboost
-joblib
-streamlit
-altair==4.2.2
-pillow
+# Web Application Framework
+streamlit>=1.28.0
+
+# Core Data Processing
+numpy>=1.21.0
+pandas>=1.3.0
+
+# Machine Learning Libraries
+scikit-learn>=1.0.0
+xgboost>=1.5.0
+
+# Visualization
+matplotlib>=3.4.0
+seaborn>=0.11.0
+altair>=4.0.0
+
+# Model Serialization
+joblib>=1.0.0
