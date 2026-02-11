@@ -119,8 +119,8 @@ The Streamlit app (`app.py`) includes the following features:
 
 **How to use the Streamlit app:**
 
+- Select the **'Upload & Predict'** radio button in the sidebar to make predictions and view evaluation metrics.
 - You must upload a test data CSV file (with the same columns as the Adult Income dataset).
-- After uploading, select the **'Upload & Predict'** radio button in the sidebar to make predictions and view evaluation metrics.
 - The app will display prediction summary, metrics, confusion matrix, and classification report for the selected model.
 
 ### Sample Test Data
@@ -144,3 +144,11 @@ python adult_income_prediction.py
 ```bash
 streamlit run app.py
 ```
+
+---
+
+## Python Version Requirement
+
+**Important:** This project requires Python 3.12 or lower for Streamlit compatibility. Python 3.13+ is not supported because the `imghdr` module was removed from the standard library, and Streamlit currently depends on it. If you use Python 3.13+, you will encounter errors such as `ModuleNotFoundError: No module named 'imghdr'`.
+
+**To deploy or run the Streamlit app, use Python 3.12 or lower.**
