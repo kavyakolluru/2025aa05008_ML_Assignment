@@ -283,7 +283,7 @@ def main():
             cm_path = os.path.join("model", filename)
             if os.path.exists(cm_path):
                 col_index = idx % len(cols)
-                with cols[col_index]:
+                with cols[int(col_index)]:
                     st.image(cm_path, caption=name, use_container_width=True)
 
         st.markdown("---")
