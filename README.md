@@ -142,6 +142,7 @@ The Streamlit app (`app.py`) includes the following features:
 
 - Select the **'Upload & Predict'** radio button in the sidebar to make predictions and view evaluation metrics.
 - You must upload a test data CSV file (with the same columns as the Adult Income dataset).
+- After uploading your test data, select the classification model from the **Choose a classification model** dropdown and hit the **Make Predictions** button to get the prediction results.
 - The app will display prediction summary, metrics, confusion matrix, and classification report for the selected model.
 
 ### Sample Test Data
