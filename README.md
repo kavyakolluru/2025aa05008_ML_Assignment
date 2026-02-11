@@ -174,6 +174,4 @@ The content of this README (Section 3 - Step 5) should also be included in your 
 
 ## Python Version Requirement
 
-**Important:** This project requires Python 3.12 or lower for Streamlit compatibility. Python 3.13+ is not supported because the `imghdr` module was removed from the standard library, and Streamlit currently depends on it. If you use Python 3.13+, you will encounter errors such as `ModuleNotFoundError: No module named 'imghdr'`.
-
-**To deploy or run the Streamlit app, use Python 3.12 or lower.**
+**Important:** This project requires Python 3.12 or lower for Streamlit compatibility.
