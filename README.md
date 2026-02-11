@@ -105,6 +105,27 @@ project-folder/
 
 ---
 
+## requirements.txt
+Create a file named `requirements.txt` in your project directory. This file should list all the Python packages required to run the project. Example:
+
+```
+pandas
+numpy
+scikit-learn
+xgboost
+streamlit
+altair
+matplotlib
+seaborn
+```
+
+You can install all dependencies using:
+```
+pip install -r requirements.txt
+```
+
+---
+
 ## Streamlit Web Application Features
 
 The Streamlit app (`app.py`) includes the following features:
@@ -144,6 +165,9 @@ python adult_income_prediction.py
 ```bash
 streamlit run app.py
 ```
+
+### Step 4: Submission Guidelines
+The content of this README (Section 3 - Step 5) should also be included in your submitted PDF file as per the instructions.
 
 ---
 
