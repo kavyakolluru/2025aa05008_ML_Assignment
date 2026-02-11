@@ -9,6 +9,7 @@ import pickle
 import os
 import matplotlib.pyplot as plt
 import seaborn as sns
+import requests
 from sklearn.metrics import (
     accuracy_score,
     precision_score,
@@ -322,9 +323,23 @@ def main():
         Upload a CSV file containing test data to make predictions using the selected model.
         
         **Note:** The CSV file should have the same structure as the Adult Income dataset.
-        
-        **Need a sample?** [Download sample_test_data.csv](https://github.com/kavyakolluru/ML/raw/main/sample_test_data.csv)
         """)
+
+        # Download button for sample test data
+        sample_url = "https://github.com/kavyakolluru/2025aa05008_ML_Assignment/raw/main/sample_test_data.csv"
+        try:
+            response = requests.get(sample_url)
+            if response.status_code == 200:
+                st.download_button(
+                    label="Download sample_test_data.csv",
+                    data=response.content,
+                    file_name="sample_test_data.csv",
+                    mime="text/csv"
+                )
+            else:
+                st.warning("Sample test data could not be fetched. Please check the URL.")
+        except Exception as e:
+            st.warning(f"Error fetching sample test data: {e}")
 
         uploaded_file = st.file_uploader(
             "Choose a CSV file",
