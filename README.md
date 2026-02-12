@@ -1,6 +1,6 @@
 # Machine Learning Assignment - Income Classification
 
-## a. Problem Statement
+## Problem Statement
 The objective of this project is to build and compare multiple machine learning classification models to predict whether a person's annual income exceeds $50,000 based on census data. This is a binary classification problem where we predict one of two classes:
 * **Class 0:** Income ≤ $50K per year
 * **Class 1:** Income > $50K per year
@@ -9,7 +9,7 @@ The project implements six different classification algorithms, evaluates them u
 
 ---
 
-## b. Dataset Description
+## Dataset Description
 **Dataset Name:** Adult Census Income Dataset  
 **Source:** UCI Machine Learning Repository  
 **URL:** [https://archive.ics.uci.edu/dataset/2/adult](https://archive.ics.uci.edu/dataset/2/adult)
@@ -44,7 +44,7 @@ This dataset was extracted from the 1994 US Census database. It contains demogra
 
 ---
 
-## c. Models Used
+## Models Used
 Six classification models were implemented and evaluated on this dataset:
 1. **Logistic Regression** - A linear model for binary classification
 2. **Decision Tree Classifier** - A tree-based model that makes decisions based on feature values
