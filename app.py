@@ -180,6 +180,12 @@ def main():
     st.markdown('<p class="main-header">💰 Adult Income Classification</p>', unsafe_allow_html=True)
     st.markdown('<p class="sub-header">Predict whether annual income exceeds $50,000</p>', unsafe_allow_html=True)
 
+    st.markdown("""
+    <div style='background-color:#ffe066;padding:10px;border-radius:8px;margin-bottom:15px;'>
+        <b>To upload test data and make predictions, select the <span style='color:#1E88E5;'>Upload & Predict</span> radio button in the navigation bar on the left.</b>
+    </div>
+    """, unsafe_allow_html=True)
+
     try:
         models, scaler, label_encoders = load_models()
     except Exception as e:
@@ -195,7 +201,6 @@ def main():
     if not available_models:
         st.error("No models found. Please train the models first using adult_income_prediction.py")
         return
-
     selected_model = st.sidebar.selectbox(
         "Choose a classification model:",
         available_models,
@@ -232,17 +237,8 @@ def main():
             """)
 
         with col2:
-            st.subheader("🎯 Available Models")
-            st.markdown("""
-            This application includes 6 trained classification models:
-            
-            1. **Logistic Regression** - Linear classifier
-            2. **Decision Tree** - Tree-based classifier
-            3. **K-Nearest Neighbors** - Instance-based learning
-            4. **Naive Bayes** - Probabilistic classifier
-            5. **Random Forest** - Ensemble of decision trees
-            6. **XGBoost** - Gradient boosting ensemble
-            """)
+            # Removed Available Models info as requested
+            pass
 
         st.markdown("---")
 
@@ -264,52 +260,6 @@ def main():
 
         styled_df = comparison_df.style.highlight_max(axis=0, color='lightgreen').format("{:.4f}")
         st.dataframe(styled_df, use_container_width=True)
-
-        st.markdown("---")
-        st.subheader("📊 Confusion Matrices")
-
-        col1, col2, col3 = st.columns(3)
-        cols = [col1, col2, col3]
-
-        cm_files = [
-            ('Logistic Regression', 'confusion_matrix_Logistic_Regression.png'),
-            ('Decision Tree', 'confusion_matrix_Decision_Tree.png'),
-            ('KNN', 'confusion_matrix_KNN.png'),
-            ('Naive Bayes', 'confusion_matrix_Naive_Bayes.png'),
-            ('Random Forest', 'confusion_matrix_Random_Forest.png'),
-            ('XGBoost', 'confusion_matrix_XGBoost.png')
-        ]
-
-        for idx, (name, filename) in enumerate(cm_files):
-            cm_path = os.path.join("model", filename)
-            if os.path.exists(cm_path):
-                col_index = idx % len(cols)
-                with cols[int(col_index)]:
-                    st.image(cm_path, caption=name, use_container_width=True)
-
-        st.markdown("---")
-        st.subheader("📉 Metrics Visualization")
-
-        metrics_to_plot = ['Accuracy', 'AUC', 'Precision', 'Recall', 'F1 Score', 'MCC']
-
-        fig, axes = plt.subplots(2, 3, figsize=(15, 10))
-        colors = sns.color_palette("husl", len(comparison_df))
-
-        for idx, metric in enumerate(metrics_to_plot):
-            ax = axes[idx // 3, idx % 3]
-            if metric in comparison_df.columns:
-                bars = ax.bar(comparison_df.index, comparison_df[metric], color=colors)
-                ax.set_title(metric, fontsize=12, fontweight='bold')
-                ax.set_xticklabels(comparison_df.index, rotation=45, ha='right', fontsize=8)
-                ax.set_ylim(0, 1.1)
-
-                for bar in bars:
-                    height = bar.get_height()
-                    ax.text(bar.get_x() + bar.get_width()/2., height + 0.02,
-                           f'{height:.3f}', ha='center', va='bottom', fontsize=8)
-
-        plt.tight_layout()
-        st.pyplot(fig)
 
         st.markdown("---")
 
@@ -363,11 +313,11 @@ def main():
                 else:
                     st.warning("⚠️ No target column 'income' found. Only predictions will be shown.")
 
-                if st.button("🚀 Make Predictions", type="primary"):
+                if st.button("\U0001F680 Make Predictions", type="primary"):
                     with st.spinner("Processing data and making predictions..."):
                         X_processed, y_true = preprocess_data(df, label_encoders, scaler)
 
-                        if selected_model is not None:
+                        if selected_model is not None and isinstance(selected_model, str) and selected_model in models:
                             model = models[selected_model]
                             y_pred = model.predict(X_processed)
                             try:

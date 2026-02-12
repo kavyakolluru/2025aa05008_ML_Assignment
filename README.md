@@ -1,6 +1,6 @@
 # Machine Learning Assignment - Income Classification
 
-## Problem Statement
+## a. Problem Statement
 The objective of this project is to build and compare multiple machine learning classification models to predict whether a person's annual income exceeds $50,000 based on census data. This is a binary classification problem where we predict one of two classes:
 * **Class 0:** Income ≤ $50K per year
 * **Class 1:** Income > $50K per year
@@ -9,7 +9,7 @@ The project implements six different classification algorithms, evaluates them u
 
 ---
 
-## Dataset Description
+## b. Dataset Description
 **Dataset Name:** Adult Census Income Dataset  
 **Source:** UCI Machine Learning Repository  
 **URL:** [https://archive.ics.uci.edu/dataset/2/adult](https://archive.ics.uci.edu/dataset/2/adult)
@@ -44,7 +44,7 @@ This dataset was extracted from the 1994 US Census database. It contains demogra
 
 ---
 
-## Models Used
+## c. Models Used
 Six classification models were implemented and evaluated on this dataset:
 1. **Logistic Regression** - A linear model for binary classification
 2. **Decision Tree Classifier** - A tree-based model that makes decisions based on feature values
@@ -85,13 +85,13 @@ Six classification models were implemented and evaluated on this dataset:
 ```text
 project-folder/
 │
-├── adult_income_prediction.py    # Main ML implementation file
 ├── app.py                        # Streamlit web application
 ├── sample_test_data.csv          # Sample test data for Streamlit app
 ├── requirements.txt              # Python dependencies
 ├── README.md                     # This file
 │
-└── model/                        # Saved model files (.pkl)
+└── model/                        # Saved model files (.pkl) and main implementation
+    ├── adult_income_prediction.py    # Main ML implementation file
     ├── logistic_regression.pkl
     ├── decision_tree.pkl
     ├── knn.pkl
@@ -105,8 +105,8 @@ project-folder/
 
 ---
 
-## requirements.txt
-Create a file named `requirements.txt` in your project directory. This file should list all the Python packages required to run the project. Example:
+## Requirements.txt
+This file should list all the Python packages required to run the project. Example:
 
 ```
 pandas
@@ -118,12 +118,6 @@ altair
 matplotlib
 seaborn
 ```
-
-You can install all dependencies using:
-```
-pip install -r requirements.txt
-```
-
 ---
 
 ## Streamlit Web Application Features
@@ -135,18 +129,18 @@ The Streamlit app (`app.py`) includes the following features:
 | **Dataset Upload (CSV)** | Upload test data in CSV format for predictions |
 | **Model Selection Dropdown** | Choose from 6 trained classification models |
 | **Evaluation Metrics Display** | Shows Accuracy, AUC, Precision, Recall, F1, MCC |
-| **Confusion Matrix** | Visual confusion matrix for model performance |
-| **Classification Report** | Detailed precision, recall, f1-score per class |
+| **Confusion Matrix** | Shown after predictions (not on home page) |
+| **Classification Report** | Detailed precision, recall, f1-score per class (after predictions) |
 
 **How to use the Streamlit app:**
 
 - Select the **'Upload & Predict'** radio button in the sidebar to make predictions and view evaluation metrics.
 - You must upload a test data CSV file (with the same columns as the Adult Income dataset).
 - After uploading your test data, select the classification model from the **Choose a classification model** dropdown and hit the **Make Predictions** button to get the prediction results.
-- The app will display prediction summary, metrics, confusion matrix, and classification report for the selected model.
+- The app will display prediction summary, metrics, confusion matrix, and classification report for the selected model (these are only shown after predictions, not on the home page).
 
 ### Sample Test Data
-A sample test data file (`sample_test_data.csv`) is provided for testing the Streamlit app. This file contains 30 records with all required columns including the ground truth `income` column for evaluation.
+A sample test data file (`sample_test_data.csv`) is provided for testing the Streamlit app. 
 
 ---
 
@@ -159,17 +153,13 @@ pip install -r requirements.txt
 
 ### Step 2: Run the ML Model Training
 ```bash
-python adult_income_prediction.py
+python model/adult_income_prediction.py
 ```
 
 ### Step 3: Run the Streamlit App (optional)
 ```bash
 streamlit run app.py
 ```
-
-### Step 4: Submission Guidelines
-The content of this README (Section 3 - Step 5) should also be included in your submitted PDF file as per the instructions.
-
 ---
 
 ## Python Version Requirement

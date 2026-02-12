@@ -422,9 +422,7 @@ def create_comparison_table(results_list):
 # ================================================================================
 
 def save_confusion_matrix(y_true, y_pred, model_name):
-
     cm = confusion_matrix(y_true, y_pred)
-
     plt.figure(figsize=(7, 5))
     sns.heatmap(
         cm,
@@ -438,16 +436,12 @@ def save_confusion_matrix(y_true, y_pred, model_name):
     plt.xlabel('Predicted Income Level')
     plt.ylabel('Actual Income Level')
     plt.tight_layout()
-
-    save_folder = 'model'
-    if not os.path.exists(save_folder):
-        os.makedirs(save_folder)
-
+    # Save directly in the same directory as this script
+    base_dir = os.path.dirname(__file__)
     safe_name = model_name.replace(' ', '_').replace('(', '').replace(')', '')
-    file_path = os.path.join(save_folder, f'confusion_matrix_{safe_name}.png')
+    file_path = os.path.join(base_dir, f'confusion_matrix_{safe_name}.png')
     plt.savefig(file_path, dpi=100)
     plt.close()
-
     print(f"Saved: {file_path}")
 
 
@@ -456,22 +450,18 @@ def save_confusion_matrix(y_true, y_pred, model_name):
 # ================================================================================
 
 def save_all_models(models_dict, scaler_object, encoders_dict):
-
-    save_folder = 'model'
-    if not os.path.exists(save_folder):
-        os.makedirs(save_folder)
+    base_dir = os.path.dirname(__file__)
     for name, model in models_dict.items():
         safe_name = name.replace(' ', '_').replace('(', '').replace(')', '').lower()
-        file_path = os.path.join(save_folder, f'{safe_name}.pkl')
+        file_path = os.path.join(base_dir, f'{safe_name}.pkl')
         with open(file_path, 'wb') as f:
             pickle.dump(model, f)
         print(f"Model saved to: {file_path}")
-    scaler_path = os.path.join(save_folder, 'scaler.pkl')
+    scaler_path = os.path.join(base_dir, 'scaler.pkl')
     with open(scaler_path, 'wb') as f:
         pickle.dump(scaler_object, f)
     print(f"Scaler saved to: {scaler_path}")
-    # Save encoders
-    encoders_path = os.path.join(save_folder, 'label_encoders.pkl')
+    encoders_path = os.path.join(base_dir, 'label_encoders.pkl')
     with open(encoders_path, 'wb') as f:
         pickle.dump(encoders_dict, f)
     print(f"Encoders saved to: {encoders_path}")
