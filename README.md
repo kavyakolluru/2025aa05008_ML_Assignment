@@ -105,21 +105,6 @@ project-folder/
 
 ---
 
-## Requirements.txt
-This file should list all the Python packages required to run the project. Example:
-
-```
-pandas
-numpy
-scikit-learn
-xgboost
-streamlit
-altair
-matplotlib
-seaborn
-```
----
-
 ## Streamlit Web Application Features
 
 The Streamlit app (`app.py`) includes the following features:
